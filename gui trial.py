@@ -1,12 +1,30 @@
-from Tkinter import *
-import Tkinter as tk
-import Tkinter, Tkconstants, tkFileDialog
-
 import pandas as pd
+import sys
 from pandas import DataFrame
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+try:
+    # for Python2
+    from Tkinter import *   ## notice capitalized T in Tkinter 
+except ImportError:
+    # for Python3
+    from tkinter import *   ## notice lowercase 't' in tkinter here	from Tkinter import *
+try:
+    # for Python2
+    import Tkinter as tk   ## notice capitalized T in Tkinter 
+except ImportError:
+    # for Python3
+    import tkinter as tk    ## notice lowercase 't' in tkinter here	from Tkinter import *
+try:
+    # for Python2
+    import Tkinter, Tkconstants, TkFileDialog  ## notice capitalized T in Tkinter 
+except ImportError:
+    from tkinter import filedialog   #for Python3
+    print()
+
+
 
 root= tk.Tk()
 
@@ -30,6 +48,12 @@ def getExcel ():
 
     root = Tk()
     root.filename = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all   files","*.*")))
+try:
+    # for Python2
+    root.filename = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all   files","*.*")))
+except:
+    root.filename = filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all   files","*.*")))
+    print()
 
     import_file_path = root.filename
     read_file = pd.read_excel (import_file_path)
