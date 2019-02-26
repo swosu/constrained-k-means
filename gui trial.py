@@ -7,26 +7,25 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 try:
     # for Python2
-    from Tkinter import *   ## notice capitalized T in Tkinter 
+    from Tkinter import *   
 except ImportError:
     # for Python3
-    from tkinter import *   ## notice lowercase 't' in tkinter here	from Tkinter import *
+    from tkinter import *   
 try:
     # for Python2
-    import Tkinter as tk   ## notice capitalized T in Tkinter 
+    import Tkinter as tk  
 except ImportError:
     # for Python3
-    import tkinter as tk    ## notice lowercase 't' in tkinter here	from Tkinter import *
+    import tkinter as tk
 try:
     # for Python2
-    import Tkinter, Tkconstants, TkFileDialog  ## notice capitalized T in Tkinter 
+    import Tkinter, Tkconstants, TkFileDialog  
 except ImportError:
-    from tkinter import filedialog   #for Python3
-    print()
-
-
+    #for Python 3
+    from tkinter import filedialog   
 
 root= tk.Tk()
+
 
 canvas1 = tk.Canvas(root, width = 400, height = 300,  relief = 'raised')
 canvas1.pack()
@@ -43,20 +42,18 @@ entry1 = tk.Entry (root)
 canvas1.create_window(200, 140, window=entry1)
 
 def getExcel ():
-    
     global df
 
     root = Tk()
-    root.filename = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all   files","*.*")))
-try:
-    # for Python2
-    root.filename = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all   files","*.*")))
-except:
-    root.filename = filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all   files","*.*")))
-    print()
+    #root.filename = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = ("all   files","*.*")))
+    try:
+        # for Python2
+        root.filename = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("excel files","*.xcls"),("all files","*.*")))
+    except:
+        root.filename = filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("excel files","*.xcls"),("all   files","*.*"))
 
-    import_file_path = root.filename
-    read_file = pd.read_excel (import_file_path)
+    file_path = filedialog.askopenfilename()
+    read_file = pd.read_excel (file_path)
     df = DataFrame(read_file,columns=['x','y'])  
     	
 browseButtonExcel = tk.Button(text=" Import Excel File ", command=getExcel, bg='green', fg='white', font=('helvetica', 10, 'bold'))
