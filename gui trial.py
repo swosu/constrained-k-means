@@ -26,7 +26,6 @@ except ImportError:
 
 root= tk.Tk()
 
-
 canvas1 = tk.Canvas(root, width = 400, height = 300,  relief = 'raised')
 canvas1.pack()
 
@@ -41,6 +40,8 @@ canvas1.create_window(200, 120, window=label2)
 entry1 = tk.Entry (root) 
 canvas1.create_window(200, 140, window=entry1)
 
+make_gui()
+
 def getExcel ():
     global df
 
@@ -50,12 +51,12 @@ def getExcel ():
         # for Python2
         root.filename = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("excel files","*.xcls"),("all files","*.*")))
     except:
-        root.filename = filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("excel files","*.xcls"),("all   files","*.*"))
+        root.filename = filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("excel files","*.xcls"),("all   files","*.*")))
 
-    file_path = filedialog.askopenfilename()
-    read_file = pd.read_excel (file_path)
+    import_file_path = filedialog.askopenfilename()
+    read_file = pd.read_excel (import_file_path)
     df = DataFrame(read_file,columns=['x','y'])  
-    	
+        	
 browseButtonExcel = tk.Button(text=" Import Excel File ", command=getExcel, bg='green', fg='white', font=('helvetica', 10, 'bold'))
 canvas1.create_window(200, 70, window=browseButtonExcel)
 
