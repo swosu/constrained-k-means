@@ -22,9 +22,12 @@ except ImportError:
     #for Python 3
     from tkinter import filedialog   
 root = tk.Tk()
+global entry1
+global numberOfClusters
+entry1 = 0
+
 def getExcel ():
-    global df
-        
+    global df   
     root             = Tk()
     #root.filename   = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = ("all   files","*.*")))
     # try:
@@ -36,11 +39,8 @@ def getExcel ():
     import_file_path = filedialog.askopenfilename()
     read_file        = pd.read_excel (import_file_path)
     df               = DataFrame(read_file,columns=['x','y']) 
-def getKMeans ():
+def getKMeans (numberOfClusters):
     global df
-    global numberOfClusters
-    numberOfClusters                                = int(entry1.get())
-    
     kmeans                                          = KMeans(n_clusters=numberOfClusters).fit(df)
     centroids                                       = kmeans.cluster_centers_
     
@@ -56,6 +56,7 @@ def getKMeans ():
 
 def make_gui():
     from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+    numberOfClusters = 0
     canvas1                                = tk.Canvas(root, width = 400, height = 300,  relief = 'raised')
     canvas1.pack()
     
@@ -67,13 +68,19 @@ def make_gui():
     label2.config(font                     = ('helvetica', 8))
     canvas1.create_window(200, 120, window = label2)
     
-    entry1                                 = tk.Entry (root) 
+    entry1                                 = tk.Entry(root) 
     canvas1.create_window(200, 140, window = entry1)
+    numberOfClusters                       = entry1.get()
     
-    browseButtonExcel                      = tk.Button(text=" Import Excel File ", command=getExcel, bg='green', fg='white', font=('helvetica', 10, 'bold'))
+    browseButtonExcel                      = tk.Button(text=" Import Excel File ", command=getExcel(), bg='green', fg='white', font=('helvetica', 10, 'bold'))
     canvas1.create_window(200, 70, window  = browseButtonExcel)
     
-    processButton                          = tk.Button(text=' Process k-Means ', command=getKMeans, bg='brown', fg='white', font=('helvetica', 10, 'bold'))
+    processButton                          = tk.Button(text=' Process k-Means ', command=getKMeans(numberOfClusters), bg='brown', fg='white', font=('helvetica', 10, 'bold'))
     canvas1.create_window(200, 170, window = processButton)
-make_gui()
-root.mainloop()
+
+def main():
+    make_gui()
+    root.mainloop()
+  
+if __name__== "__main__":
+  main()
