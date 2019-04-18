@@ -29,6 +29,7 @@ import sys
 import os
 
 root                                   = tk.Tk()
+root.title('Constrained k-Means Clustering Trial')
 
 canvas1                                = tk.Canvas(root, width = 400, height = 300,  relief = 'raised')
 canvas1.pack()
@@ -77,12 +78,8 @@ def getKMeans ():
     ax1.scatter(centroids[:, 0], centroids[:, 1], c ='red', s=50)
     scatter1                                        = FigureCanvasTkAgg(figure1, root) 
     scatter1.get_tk_widget().pack(side=tk.RIGHT, fill=tk.BOTH)
-
-
     
 processButton = tk.Button(text=' Process k-Means ', command=getKMeans, bg='brown', fg='white', font=('helvetica', 10, 'bold'))
 canvas1.create_window(200, 170, window=processButton)
-
-
 
 root.mainloop()
